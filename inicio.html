@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Elevador Maldito</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer>
+    // Efecto de movimiento de elevador al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      const panel = document.querySelector('.elevador');
+      panel.classList.add('subiendo');
+
+      // Después de que "sube", hace un temblor
+      setTimeout(() => {
+        panel.classList.remove('subiendo');
+        panel.classList.add('temblor');
+      }, 4000); // 4 segundos de subida
+
+      // Redirección por botones
+      document.querySelectorAll('.boton').forEach((boton) => {
+        boton.addEventListener('click', () => {
+          const numero = boton.textContent.trim();
+          if (/^[1-5]$/.test(numero)) {
+            window.location.href = `leyenda${numero}.html`;
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+    /* Animación de subida */
+    @keyframes subir-elevador {
+      0% { transform: translateY(100vh) scale(0.9); opacity: 0; }
+      50% { transform: translateY(-30px) scale(1.03); opacity: 1; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .subiendo {
+      animation: subir-elevador 3.5s ease-in-out forwards;
+    }
+
+    /* Luces en fondo */
+    body.panel-elevador::after {
+      content: '';
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,0,0,0.05), transparent 70%);
+      animation: parpadeo-fondo 4s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes parpadeo-fondo {
+      0%, 100% { opacity: 0.03; }
+      50% { opacity: 0.12; }
+    }
+  </style>
+</head>
+
+<body class="panel-elevador">
+  <div class="niebla"></div>
+  <div class="contenedor-fondo">
+    <div class="elevador">
+      <div class="boton">1</div>
+      <div class="boton">2</div>
+      <div class="boton">3</div>
+      <div class="boton">4</div>
+      <div class="boton">5</div>
+    </div>
+  </div>
+</body>
+</html>

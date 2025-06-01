@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leyendas Malditas de Guatemala</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <body class="inicio"></body>
+  <div class="niebla"></div>
+
+  <div class="contenedor-fondo">
+    <h1 class="titulo-leyenda">LEYENDAS MALDITAS DE GUATEMALA</h1>
+    <p class="subtitulo">¿Estás preparado para adentrarte en lo prohibido?</p>
+    <button id="btn-inicio" class="btn-inicio">INVOCAR LEYENDAS</button>
+  </div>
+  
+  <!-- Video Screamer oculto -->
+  <video id="video-screamer" class="video-screamer" muted playsinline>
+    <source src="assets/llorona.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Audio Screamer -->
+  <audio id="audio-scream" src="assets/scream.mp3"></audio>
+
+  <script>
+    const boton = document.getElementById('btn-inicio');
+    const video = document.getElementById('video-screamer');
+    const audio = document.getElementById('audio-scream');
+
+    boton.addEventListener('click', () => {
+      // Temblor
+      document.body.classList.add('temblor');
+
+      // Mostrar video y reproducir ambos
+      video.style.display = 'block';
+      video.play();
+      audio.play();
+
+      // Al terminar el video, redirigir
+      video.addEventListener('ended', () => {
+        window.location.href = 'inicio.html';
+      });
+    });
+  </script>
+
+</body>
+</html>

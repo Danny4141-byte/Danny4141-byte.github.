@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Tatuana - Leyendas de Guatemala</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+ <body class="jail"></body>
+<div class="background-overlay"></div>
+
+<div class="container" role="main" aria-label="Sección de la leyenda La Tatuana">
+  <h1>La Tatuana</h1>
+  <p class="subtitle">"Manuela, la bruja que escapó del fuego con un barco mágico"</p>
+  
+  <p class="story">
+    La Tatuana es la historia de Manuela, una mujer acusada de brujería en Guatemala que fue condenada a ser quemada viva. Sin embargo, la noche antes de su ejecución, ella escapó dibujando un barco mágico en la pared, con el cual huyó hacia la libertad.
+  </p>
+
+  <div class="wall-container" tabindex="0" aria-label="Pared con dibujo de barco mágico interactivo">
+    <div class="wall">
+      <div class="boat" id="boat" aria-label="Dibujo de barco mágico" role="button" tabindex="0"></div>
+      <div class="water-ripples" id="waterRipples" aria-hidden="true"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Haz clic en el barco para verlo navegar hacia la libertad</footer>
+
+<script>
+  const boat = document.getElementById('boat');
+  const waterRipples = document.getElementById('waterRipples');
+
+  let sailing = false;
+
+  function startSailing() {
+    boat.classList.add('sailing');
+    waterRipples.classList.add('active');
+  }
+
+  function stopSailing() {
+    boat.classList.remove('sailing');
+    waterRipples.classList.remove('active');
+  }
+
+  function toggleSailing() {
+    if (sailing) {
+      stopSailing();
+      sailing = false;
+    } else {
+      startSailing();
+      sailing = true;
+    }
+  }
+
+  boat.addEventListener('click', toggleSailing);
+  boat.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleSailing();
+    }
+  });
+</script>
+
+</body>
+</html>

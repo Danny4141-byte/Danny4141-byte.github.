@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>El Cadejo - Leyendas de Guatemala</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<section class="el-cadejo-section">
+  <div class="background-forest"></div>
+
+  <div class="container" role="main" aria-label="Sección de la leyenda El Cadejo">
+    <h1>El Cadejo</h1>
+    <p class="subtitle">"El espíritu canino que acecha en la oscuridad"</p>
+    
+    <div class="cadejo-container" tabindex="0" aria-label="Figura del Cadejo interactiva que sigue el cursor">
+      <div class="cadejo black" id="cadejo" role="button" aria-pressed="false" tabindex="0" aria-label="Figura del Cadejo que cambia de color al hacer clic"></div>
+    </div>
+
+    <p class="story">
+      El Cadejo es un espíritu en forma de perro negro o blanco que se dice acecha en los caminos nocturnos de Guatemala. Protege o amenaza según la leyenda, apareciendo para aquellos que están en peligro o con malas intenciones.
+    </p>
+  </div>
+
+  <footer>Desplaza el cursor dentro del área para que El Cadejo te siga; haz clic en la figura para cambiar su color</footer>
+</section>
+
+<script>
+  const cadejo = document.getElementById('cadejo');
+  const container = document.querySelector('.cadejo-container');
+
+  let isBlackCadejo = true;
+
+  // Toggle the cadejo color on click or keyboard enter/space
+  function toggleCadejoColor() {
+    isBlackCadejo = !isBlackCadejo;
+    if(isBlackCadejo){
+      cadejo.classList.remove('white');
+      cadejo.classList.add('black');
+      cadejo.setAttribute('aria-pressed', 'false');
+    } else {
+      cadejo.classList.remove('black');
+      cadejo.classList.add('white');
+      cadejo.setAttribute('aria-pressed', 'true');
+    }
+  }
+
+  cadejo.addEventListener('click', toggleCadejoColor);
+  cadejo.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleCadejoColor();
+    }
+  });
+
+  // Move cadejo smoothly towards cursor within container
+  container.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const cadejoX = parseFloat(cadejo.style.left) || rect.width/2;
+    const cadejoY = parseFloat(cadejo.style.top) || rect.height/2;
+
+    // Smooth follow easing
+    const easing = 0.1;
+    const newX = cadejoX + (mouseX - cadejoX) * easing;
+    const newY = cadejoY + (mouseY - cadejoY) * easing;
+
+    cadejo.style.left = `${newX}px`;
+    cadejo.style.top = `${newY}px`;
+  });
+
+  // Initialize position center
+  const rect = container.getBoundingClientRect();
+  cadejo.style.left = `${rect.width/2}px`;
+  cadejo.style.top = `${rect.height/2}px`;
+</script>
+
+</body>
+</html>
+

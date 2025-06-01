@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Llorona - Leyendas de Guatemala</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="fog"></div>
+
+<div class="container" role="main">
+  <h1>La Llorona</h1>
+  <p class="subtitle">"El lamento eterno de una madre perdida"</p>
+  <div class="ghost-container" tabindex="0" aria-label="Figura fantasmal de La Llorona, interactúa para ver efectos">
+    <div class="ghost" id="ghost"></div>
+  </div>
+  <p class="story">
+    En las noches silenciosas de Guatemala, se cuenta la historia de una mujer que perdió a sus hijos y vaga buscando su llanto. La Llorona, la mujer que llora, es un espíritu atrapado entre el mundo de los vivos y el más allá, que lamenta eternamente su destino trágico.
+  </p>
+</div>
+
+<div class="water" aria-hidden="true">
+  <div class="ripple"></div>
+  <div class="ripple"></div>
+  <div class="ripple"></div>
+</div>
+
+<div class="lantern" id="lantern" role="button" aria-pressed="false" aria-label="Linterna parpadeante, haz clic para activar sonido"></div>
+
+<footer>Haz click en la figura para escuchar el lamento</footer>
+
+<audio id="wailSound" loop>
+  <source src="assets/ghost_wail.mp3" type="audio/mpeg" />
+  Tu navegador no soporta reproducción de audio.
+</audio>
+
+<script>
+  const ghost = document.getElementById('ghost');
+  const lantern = document.getElementById('lantern');
+  const wailSound = document.getElementById('wailSound');
+
+  let soundPlaying = false;
+
+  // Set volume via JS (volume attribute in HTML invalid)
+  wailSound.volume = 0.4;
+
+  // Debug logging
+  wailSound.addEventListener('play', () => {
+    console.log('Audio playback started.');
+  });
+  wailSound.addEventListener('error', (e) => {
+    console.error('Audio error:', e);
+  });
+  wailSound.addEventListener('pause', () => {
+    console.log('Audio paused.');
+  });
+
+  function toggleSound() {
+    console.log('toggleSound triggered. soundPlaying:', soundPlaying);
+    if(soundPlaying){
+      wailSound.pause();
+      ghost.classList.remove('hovered');
+      lantern.setAttribute('aria-pressed', 'false');
+      soundPlaying = false;
+    } else {
+      // Attempt to play audio, catch promise rejection (some browsers)
+      const playPromise = wailSound.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          ghost.classList.add('hovered');
+          lantern.setAttribute('aria-pressed', 'true');
+          soundPlaying = true;
+        }).catch(error => {
+          console.warn('Audio play was prevented:', error);
+        });
+      } else {
+        // Older browsers fallback
+        ghost.classList.add('hovered');
+        lantern.setAttribute('aria-pressed', 'true');
+        soundPlaying = true;
+      }
+    }
+  }
+
+  ghost.addEventListener('click', toggleSound);
+  ghost.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      toggleSound();
+    }
+  });
+
+  lantern.addEventListener('click', toggleSound);
+
+  let flickerInterval = setInterval(() => {
+    if(!soundPlaying){
+      ghost.style.filter = `drop-shadow(0 0 ${5 + Math.random() * 10}px #ffaaaa)`;
+      ghost.style.opacity = 0.2 + Math.random() * 0.1;
+    }
+  }, 700);
+</script>
+
+</body>
+</html>
+

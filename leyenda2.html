@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>El Sombrerón - Leyendas de Guatemala</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="atmosphere">
+  <div class="fireflies"></div>
+  <div class="fireflies delay"></div>
+</div>
+
+<div class="container" role="main" aria-label="Sección de la leyenda El Sombrerón">
+  <h1>El Sombrerón</h1>
+  <p class="subtitle">"El enigmático hombre del sombrero gigante"</p>
+  
+  <div class="sombreron-container" tabindex="0" aria-label="Figura del Sombrerón interactiva, haz clic para ver efecto mágico">
+    <div class="sombreron" id="sombreron"></div>
+    <div class="hat-glow" id="hatGlow"></div>
+    <div class="sparkles" id="sparkles"></div>
+  </div>
+  
+  <p class="story">
+    En los pueblos de Guatemala, se cuenta la historia de un hombre pequeño con un enorme sombrero y una guitarra, que con su canto hechiza a las jóvenes y les atrapa el alma. El Sombrerón camina en las noches, dejando a su paso un aura mágica y misteriosa.
+  </p>
+</div>
+
+<footer>Haz click en la figura del Sombrerón para activar el hechizo visual</footer>
+
+<script>
+  const sombreron = document.getElementById('sombreron');
+  const hatGlow = document.getElementById('hatGlow');
+  const sparkles = document.getElementById('sparkles');
+
+  let magicActive = false;
+  let sparkleInterval;
+
+  function createSparkle(){
+    const sparkle = document.createElement('span');
+    sparkle.classList.add('sparkle');
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkles.appendChild(sparkle);
+    setTimeout(() => {
+      sparkle.remove();
+    }, 2000);
+  }
+
+  function startMagic(){
+    hatGlow.classList.add('active');
+    sparkleInterval = setInterval(createSparkle, 200);
+  }
+
+  function stopMagic(){
+    hatGlow.classList.remove('active');
+    clearInterval(sparkleInterval);
+    sparkles.innerHTML = ''; // remove old sparkles
+  }
+
+  function toggleMagic() {
+    if(magicActive){
+      stopMagic();
+      magicActive = false;
+    } else {
+      startMagic();
+      magicActive = true;
+    }
+  }
+
+  sombreron.addEventListener('click', toggleMagic);
+  sombreron.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      toggleMagic();
+    }
+  });
+</script>
+
+</body>
+</html>
+

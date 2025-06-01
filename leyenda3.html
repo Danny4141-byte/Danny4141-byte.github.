@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Siguanaba - Leyendas de Guatemala</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="background-forest"></div>
+
+<div class="container" role="main" aria-label="Sección de la leyenda La Siguanaba">
+  <h1>La Siguanaba</h1>
+  <p class="subtitle">"La mujer que engaña para atrapar"</p>
+
+  <div class="siguanaba-container" tabindex="0" aria-label="Figura de La Siguanaba interactiva que revela su rostro verdadero">
+    <div class="siguanaba" id="siguanaba"></div>
+  </div>
+
+  <p class="story">
+    En la penumbra de la noche, la Siguanaba aparece como una hermosa mujer para atraer a los desprevenidos, pero aquellos que se atreven a mirarla de cerca descubren su terrorífico rostro verdadero, un castigo para los pecadores.
+  </p>
+</div>
+
+<footer>Haz click o pasa el cursor sobre la figura para revelar su rostro verdadero</footer>
+
+<script>
+  const siguanaba = document.getElementById('siguanaba');
+
+  function toggleFace() {
+    siguanaba.classList.toggle('revealed');
+  }
+
+  siguanaba.addEventListener('click', toggleFace);
+  siguanaba.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleFace();
+    }
+  });
+
+  siguanaba.addEventListener('mouseenter', () => {
+    siguanaba.classList.add('revealed');
+  });
+  siguanaba.addEventListener('mouseleave', () => {
+    siguanaba.classList.remove('revealed');
+  });
+</script>
+
+</body>
+</html>
