@@ -2,49 +2,86 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Leyendas Malditas de Guatemala</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+  <title>Feliz Navidad ❤️</title>
+
+  <!-- Fuente navideña -->
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <body class="inicio"></body>
-  <div class="niebla"></div>
 
-  <div class="contenedor-fondo">
-    <h1 class="titulo-leyenda">LEYENDAS MALDITAS DE GUATEMALA</h1>
-    <p class="subtitulo">¿Estás preparado para adentrarte en lo prohibido?</p>
-    <button id="btn-inicio" class="btn-inicio">INVOCAR LEYENDAS</button>
-  </div>
-  
-  <!-- Video Screamer oculto -->
-  <video id="video-screamer" class="video-screamer" muted playsinline>
-    <source src="assets/llorona.mp4" type="video/mp4" />
-  </video>
+  <!-- PANTALLA 1 -->
+  <section class="screen active" id="screen1">
+    <h1 class="christmas-title">Feliz Navidad <span class="lights">✨</span></h1>
+    <p class="subtitle-love">🎁 REGALO PARA MI AMOR ERISITA 🎁</p>
+    <button class="open-gift-btn" onclick="nextScreen(2)">🎄 OPEN YOUR GIFT 🎄</button>
+  </section>
 
-  <!-- Audio Screamer -->
-  <audio id="audio-scream" src="assets/scream.mp3"></audio>
+  <!-- PANTALLA 2 - CARTA -->
+  <section class="screen" id="screen2">
+    <div class="letter-envelope">
+      <div class="letter-paper">
+        <h2>🎄 Para ti, de Daniel 🎄</h2>
+        <p>
+          Natal pertama kami<br><br>
+          This Christmas is very special to me because it’s the first one I get to celebrate with you in my life. Even though distance exists, my heart feels closer to you than ever.
 
-  <script>
-    const boton = document.getElementById('btn-inicio');
-    const video = document.getElementById('video-screamer');
-    const audio = document.getElementById('audio-scream');
+Despite the discussions, the frustrations, and our “evolutions,” we’re still here, together—and that says a lot. I want you to know how grateful I am for your love, your presence, and everything you are.
 
-    boton.addEventListener('click', () => {
-      // Temblor
-      document.body.classList.add('temblor');
+Thank you for being here, for loving me, and for choosing me every day. I love you, and I hope we get to spend many more Christmases together.
 
-      // Mostrar video y reproducir ambos
-      video.style.display = 'block';
-      video.play();
-      audio.play();
+Aku cinta kamu, my Erisita ❤️
+        </p>
+      </div>
+    </div>
 
-      // Al terminar el video, redirigir
-      video.addEventListener('ended', () => {
-        window.location.href = 'inicio.html';
-      });
-    });
-  </script>
+    <button class="continue-btn" onclick="nextScreen(3)">✨ Continuar ✨</button>
+  </section>
 
+  <!-- PANTALLA 3 - VIDEO / ILUSTRACIÓN -->
+  <section class="screen" id="screen3">
+    <h2 class="fade-title">✨ us next Christmas 🫣✨</h2>
+
+    <div class="video-box">
+      <video id="video" poster="poster.jpg" preload="metadata">
+        <source src="video.mp4" type="video/mp4" />
+        Tu navegador no soporta video.
+      </video>
+
+      <button class="play-btn" id="playBtn" onclick="playVideo()">▶ Animation</button>
+    </div>
+
+    <button class="continue-btn" onclick="nextScreen(4)">Last surprise</button>
+  </section>
+
+  <!-- PANTALLA 4 - RULETA -->
+  <section class="screen" id="screen4">
+    <h2 class="roulette-title">🎄 Christmas Roulette 🎄</h2>
+
+    <div class="roulette-wrapper">
+      <div class="pointer" aria-hidden="true"></div>
+
+      <div class="wheel-container">
+        <div id="wheel" aria-hidden="true">
+          <span class="label label-0">Q0</span>
+          <span class="label label-50">Q50</span>
+          <span class="label label-150">Q150</span>
+          <span class="label label-200">Q200</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <!-- UN SOLO BOTÓN: cambia texto y comportamiento -->
+      <button id="actionBtn" class="spin-btn">🎁 Spin 🎁</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite"></div>
+  </section>
+
+  <div id="confetti" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
